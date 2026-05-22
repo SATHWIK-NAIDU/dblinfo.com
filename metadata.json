@@ -1,0 +1,6 @@
+{
+  "name": "DBL Digital Agency",
+  "description": "Premium, modern, minimalist digital marketing agency website for DBL.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

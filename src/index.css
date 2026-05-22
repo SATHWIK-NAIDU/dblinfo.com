@@ -1,21 +1,98 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+  --font-sans: "DM Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Cormorant Garamond", "Playfair Display", ui-serif, Georgia, serif;
 
-  --color-primary-900: #0f0f11;
-  --color-primary-800: #1a1a1d;
-  --color-ivory: #faf9f6;
-  --color-accent-blue: #2563eb;
-  --color-accent-purple: #7e22ce;
+  --color-orange: var(--orange);
+  --color-orange-lt: var(--orange-lt);
+  --color-orange-dk: var(--orange-dk);
+  --color-brown: var(--brown);
+  --color-brown-lt: var(--brown-lt);
+  --color-cream: var(--cream);
+  --color-white: var(--white);
+  --color-text-dim: var(--text-dim);
+}
+
+:root {
+  --orange: #E8621A;
+  --orange-lt: #FF8C42;
+  --orange-dk: #B8450E;
+  --brown: #3B2314;
+  --brown-lt: #6B3A22;
+  --cream: #FAF6F1;
+  --white: #FFFFFF;
+  --text-dim: rgba(59, 35, 20, 0.55);
+}
+
+:root.dark {
+  --orange: #FF7D3C;
+  --orange-lt: #FFA673;
+  --orange-dk: #D44E11;
+  --brown: #FAF6F1;
+  --brown-lt: #DBCFBE;
+  --cream: #120804;
+  --white: #1C0F08;
+  --text-dim: rgba(250, 246, 241, 0.55);
+}
+
+/* Custom CSS Overrides for Dark Mode Forms & Elements */
+.dark input, .dark select, .dark textarea {
+  background-color: #160B06 !important;
+  color: #FAF6F1 !important;
+  border-color: rgba(250, 246, 241, 0.12) !important;
+}
+
+.dark input::placeholder, .dark textarea::placeholder {
+  color: rgba(250, 246, 241, 0.35) !important;
+}
+
+.dark input:focus, .dark select:focus, .dark textarea:focus {
+  border-color: var(--orange) !important;
+  box-shadow: 0 0 0 1px var(--orange) !important;
+}
+
+.dark .bg-white {
+  background-color: #1C0F08 !important;
+  border-color: rgba(250, 246, 241, 0.08) !important;
+}
+
+.dark .bg-white\/90 {
+  background-color: rgba(28, 15, 8, 0.9) !important;
+}
+
+.dark .border-brown\/8 {
+  border-color: rgba(250, 246, 241, 0.08) !important;
+}
+
+.dark .border-brown\/15 {
+  border-color: rgba(250, 246, 241, 0.12) !important;
 }
 
 body {
-  @apply bg-zinc-950 text-zinc-50 font-sans antialiased selection:bg-indigo-500/30 selection:text-indigo-200 overflow-x-hidden;
+  @apply bg-cream text-brown font-sans antialiased selection:bg-orange/20 selection:text-orange-dk overflow-x-hidden transition-colors duration-300;
 }
 
 html {
   scroll-behavior: smooth;
 }
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Thin Scrollbar style */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-orange);
+  border-radius: 2px;
+}
+

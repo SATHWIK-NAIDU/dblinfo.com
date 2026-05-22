@@ -100,7 +100,78 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
+      {/* Mobile Card Layout (Visible on mobile/tablet, hidden on desktop) */}
+      <div className="block md:hidden space-y-4">
+        {loading ? (
+          <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-8 text-center text-zinc-500">
+            Loading leads...
+          </div>
+        ) : filteredLeads.length === 0 ? (
+          <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-8 text-center text-zinc-500">
+            No leads found.
+          </div>
+        ) : (
+          filteredLeads.map((lead) => (
+            <div key={lead.id} className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4 hover:border-zinc-700 transition-colors">
+              <div className="flex justify-between items-start gap-2">
+                <div>
+                  <div className="text-[10px] sm:text-xs text-zinc-400 font-medium">{new Date(lead.created_at).toLocaleDateString()}</div>
+                  <div className="text-base font-bold text-white mt-0.5 leading-tight">{lead.name}</div>
+                  <div className="text-xs text-zinc-400 mt-0.5">{lead.company || 'No Company'}</div>
+                </div>
+                <div className="shrink-0">
+                  <select
+                    value={lead.status || 'New'}
+                    onChange={(e) => updateStatus(lead.id, e.target.value)}
+                    className={`text-xs rounded-full px-2.5 py-1 font-semibold bg-zinc-950 border focus:outline-none transition-colors ${
+                      lead.status === 'Closed' ? 'border-green-500/30 text-green-400' :
+                      lead.status === 'Contacted' ? 'border-blue-500/30 text-blue-400' :
+                      'border-yellow-500/30 text-yellow-400'
+                    }`}
+                  >
+                    <option value="New">New</option>
+                    <option value="Contacted">Contacted</option>
+                    <option value="Closed">Closed</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="border-t border-zinc-800 pt-3 grid grid-cols-2 gap-4 text-xs">
+                <div>
+                  <div className="text-zinc-500 font-medium">Email</div>
+                  <a href={`mailto:${lead.email}`} className="text-zinc-300 hover:text-white transition-colors break-all block mt-0.5">
+                    {lead.email}
+                  </a>
+                </div>
+                <div>
+                  <div className="text-zinc-500 font-medium">Phone</div>
+                  <a href={`tel:${lead.phone}`} className="text-zinc-300 hover:text-white transition-colors block mt-0.5">
+                    {lead.phone || '-'}
+                  </a>
+                </div>
+                <div>
+                  <div className="text-zinc-500 font-medium">Budget</div>
+                  <div className="text-zinc-300 mt-0.5">{lead.budget || '-'}</div>
+                </div>
+                <div>
+                  <div className="text-zinc-500 font-medium">Interest</div>
+                  <div className="text-indigo-400 font-semibold mt-0.5">{lead.services_interested || '-'}</div>
+                </div>
+              </div>
+
+              {lead.message && (
+                <div className="bg-zinc-950/50 border border-zinc-800/80 rounded-lg p-3">
+                  <div className="text-zinc-500 text-[10px] font-bold uppercase tracking-wider mb-1">Message</div>
+                  <div className="text-zinc-400 text-xs leading-relaxed whitespace-pre-wrap">{lead.message}</div>
+                </div>
+              )}
+            </div>
+          ))
+        )}
+      </div>
+
+      {/* Desktop/Tablet Table Layout (Visible on desktop/laptops, hidden on mobile) */}
+      <div className="hidden md:block bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-zinc-800">
             <thead className="bg-zinc-950/50">

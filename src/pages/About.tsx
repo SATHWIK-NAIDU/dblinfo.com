@@ -10,10 +10,10 @@ export default function About() {
       tagline: "Architecting digital futures with data-driven precision."
     },
     {
-      name: "Sathwik Mallam",
-      role: "Administrator & Head of Strategy",
-      initials: "SM",
-      tagline: "Turning strategic vision into predictable, scalable revenue."
+      name: "Murili Mohan Kuchimanchi",
+      role: "CEO",
+      initials: "MM",
+      tagline: "Leading DBL with decades of transformational expertise."
     },
   ];
 

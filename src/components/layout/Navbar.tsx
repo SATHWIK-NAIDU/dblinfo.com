@@ -55,30 +55,6 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
-          {/* Theme Toggle Button */}
-          <button
-            onClick={toggleTheme}
-            className="p-2.5 rounded-full bg-brown/5 dark:bg-white/10 text-brown hover:text-orange transition-colors flex items-center justify-center cursor-pointer relative overflow-hidden h-10 w-10 ml-4"
-            aria-label="Toggle theme"
-          >
-            <motion.div
-              initial={false}
-              animate={{ rotate: theme === 'dark' ? 180 : 0, scale: theme === 'dark' ? 0 : 1 }}
-              transition={{ duration: 0.3 }}
-              className="flex items-center justify-center absolute"
-            >
-              <Sun size={18} />
-            </motion.div>
-            <motion.div
-              initial={false}
-              animate={{ rotate: theme === 'dark' ? 0 : -180, scale: theme === 'dark' ? 1 : 0 }}
-              transition={{ duration: 0.3 }}
-              className="flex items-center justify-center absolute"
-            >
-              <Moon size={18} />
-            </motion.div>
-          </button>
-
           <Link 
             to="/contact" 
             className="px-6 py-2.5 rounded-full bg-orange text-[#FFFFFF] font-semibold text-sm hover:bg-orange-dk shadow-md shadow-orange/15 hover:shadow-orange/20 hover:-translate-y-[1px] transition-all ml-4"
@@ -117,24 +93,6 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
-            {/* Mobile Theme Toggle */}
-            <button
-              onClick={toggleTheme}
-              className="mt-2 flex items-center gap-3 px-6 py-2.5 rounded-full bg-brown/5 dark:bg-white/10 text-brown hover:text-orange transition-colors"
-            >
-              {theme === 'dark' ? (
-                <>
-                  <Sun size={20} className="text-orange" />
-                  <span className="text-sm font-medium uppercase tracking-wider">Light Mode</span>
-                </>
-              ) : (
-                <>
-                  <Moon size={20} className="text-orange" />
-                  <span className="text-sm font-medium uppercase tracking-wider">Dark Mode</span>
-                </>
-              )}
-            </button>
-
             <Link 
               to="/contact" 
               onClick={() => setIsMobileMenuOpen(false)}

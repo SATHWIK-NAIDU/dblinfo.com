@@ -16,7 +16,7 @@ export default function CookiePolicy() {
         <p className="leading-relaxed text-lg">We use cookies primarily for:</p>
         <ul className="list-disc pl-6 space-y-3 text-brown/75 text-lg">
           <li>
-            <strong className="text-brown font-bold">Strictly Necessary Cookies:</strong> To ensure the backend forms and admin panels function securely (e.g., authentication tokens).
+            <strong className="text-brown font-bold">Strictly Necessary Cookies:</strong> To ensure the backend forms function securely (e.g., submission tokens).
           </li>
           <li>
             <strong className="text-brown font-bold">Analytics Cookies:</strong> To understand how visitors interact with our site, enabling us to optimize the UX and performance.

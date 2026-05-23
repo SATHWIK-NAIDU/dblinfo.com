@@ -3,36 +3,36 @@ import Reveal from '../components/common/Reveal';
 
 export default function About() {
   const team = [
-    { 
-      name: "Sathwik Naidu", 
-      role: "Founder & Visionary", 
-      initials: "SN", 
-      tagline: "Building brands that outlast short-lived digital trends." 
+    {
+      name: "Sai Kiran Kuchimanchi",
+      role: "Founder & Visionary",
+      initials: "SK",
+      tagline: "Architecting digital futures with data-driven precision."
     },
-    { 
-      name: "DBL Leader", 
-      role: "Chief Executive Officer", 
-      initials: "DL", 
-      tagline: "Turning strategic vision into predictable, scalable revenue." 
+    {
+      name: "Sathwik Mallam",
+      role: "Administrator & Head of Strategy",
+      initials: "SM",
+      tagline: "Turning strategic vision into predictable, scalable revenue."
     },
   ];
 
   const values = [
-    { 
-      title: "Results First", 
-      desc: "Every creative and targeting decision is anchored to measurable business outcomes, not vanity traffic." 
+    {
+      title: "Results First",
+      desc: "Every creative and targeting decision is anchored to measurable business outcomes, not vanity traffic."
     },
-    { 
-      title: "Premium Craft", 
-      desc: "We obsess over structural quality — in data models, creative messaging, and client partnerships." 
+    {
+      title: "Premium Craft",
+      desc: "We obsess over structural quality — in data models, creative messaging, and client partnerships."
     },
-    { 
-      title: "Radical Transparency", 
-      desc: "Real-time reporting dashboards and completely honest conversations. No sugarcoating performance." 
+    {
+      title: "Radical Transparency",
+      desc: "Real-time reporting dashboards and completely honest conversations. No sugarcoating performance."
     },
-    { 
-      title: "Long-term Partnership", 
-      desc: "We scale when you scale. Your long-term business equity is our ultimate North Star." 
+    {
+      title: "Long-term Partnership",
+      desc: "We scale when you scale. Your long-term business equity is our ultimate North Star."
     },
   ];
 
@@ -55,7 +55,7 @@ export default function About() {
               </h1>
             </Reveal>
             <Reveal delay={0.2}>
-              <p className="text-base sm:text-lg md:text-xl text-white/70 leading-relaxed font-sans font-medium">
+              <p className="text-base sm:text-lg md:text-xl text-white/90 leading-relaxed font-sans font-medium">
                 Digital Business Leads was founded on a simple belief: every business deserves world-class marketing execution. We bring high-end corporate strategic firepower and beautiful content creation to ambitious brands.
               </p>
             </Reveal>
@@ -67,7 +67,7 @@ export default function About() {
       <section className="py-24 bg-cream relative">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-            
+
             {/* Mission (Deep Brown Box) */}
             <Reveal direction="right" className="w-full">
               <div className="bg-brown border border-orange/15 rounded-3xl p-10 md:p-14 relative overflow-hidden h-full flex flex-col justify-between shadow-xl">
@@ -78,7 +78,7 @@ export default function About() {
                   <h3 className="font-serif font-bold text-3xl md:text-4xl text-white mb-6 leading-tight">
                     Democratize Premium Marketing
                   </h3>
-                  <p className="text-sm md:text-base leading-relaxed text-white/70 font-sans">
+                  <p className="text-sm md:text-base leading-relaxed text-white/90 font-sans">
                     To make world-class digital marketing and premium branding accessible to every ambitious enterprise — delivering the same high-level strategic intelligence and advertising leverage once reserved exclusively for multi-billion dollar conglomerates.
                   </p>
                 </div>
@@ -95,7 +95,7 @@ export default function About() {
                   <h3 className="font-serif font-bold text-3xl md:text-4xl text-brown mb-6 leading-tight">
                     India's Most Trusted Growth Partner
                   </h3>
-                  <p className="text-sm md:text-base leading-relaxed text-brown/70 font-sans">
+                  <p className="text-sm md:text-base leading-relaxed text-brown/85 font-sans">
                     To be the go-to performance and brand partner for 1,000+ scaling businesses, globally recognized for custom analytical frameworks, exquisite design execution, and commercial partnerships that genuinely shape the future of industries.
                   </p>
                 </div>
@@ -127,7 +127,7 @@ export default function About() {
             {team.map((t, i) => (
               <Reveal key={i} delay={i * 0.15}>
                 <div className="group w-full sm:w-[320px] bg-white border border-brown/8 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:border-orange/20 transition-all duration-500 hover:-translate-y-2">
-                  
+
                   {/* Avatar / Photo placeholder */}
                   <div className="h-[280px] bg-gradient-to-br from-orange/10 via-brown/10 to-[#FAF6F1] flex items-center justify-center relative overflow-hidden">
                     <div className="absolute top-[-40px] right-[-40px] w-[180px] h-[180px] rounded-full bg-orange/10 blur-[30px]" />
@@ -144,7 +144,7 @@ export default function About() {
                     <h3 className="font-serif font-bold text-2xl text-brown mb-1">{t.name}</h3>
                     <div className="text-[10px] font-bold uppercase tracking-widest text-orange mb-4">{t.role}</div>
                     <div className="w-8 h-[2px] bg-orange mb-4" />
-                    <p className="text-sm font-medium italic text-brown/65 leading-relaxed">
+                    <p className="text-sm font-medium italic text-brown/80 leading-relaxed">
                       "{t.tagline}"
                     </p>
                   </div>
@@ -188,7 +188,7 @@ export default function About() {
                     <h3 className="text-lg font-bold text-white mb-3 font-sans">
                       {v.title}
                     </h3>
-                    <p className="text-sm leading-relaxed text-white/55 font-sans">
+                    <p className="text-sm leading-relaxed text-white/80 font-sans">
                       {v.desc}
                     </p>
                   </div>

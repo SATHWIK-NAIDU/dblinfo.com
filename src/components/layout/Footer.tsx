@@ -2,15 +2,26 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Twitter, Linkedin, Instagram, ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
+import { supabase } from '../../lib/supabase';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email.trim()) {
-      // Simulate newsletter registration
+      try {
+        if (supabase) {
+          const { error } = await supabase.from('newsletters').insert([{ email }]);
+          if (error) {
+            console.error('Error subscribing to newsletter:', error);
+          }
+        }
+      } catch (err) {
+        console.error('Failed to subscribe email:', err);
+      }
+      // Show local visual success confirmation
       setSubscribed(true);
       setEmail('');
     }
@@ -20,7 +31,7 @@ export default function Footer() {
     <footer className="bg-[#1E100A] pt-24 pb-12 border-t border-orange/10 px-6 md:px-12 relative overflow-hidden">
       {/* Background Glow */}
       <div className="absolute right-0 top-0 w-96 h-96 bg-orange/5 rounded-full filter blur-[100px] pointer-events-none z-0" />
-      
+
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 lg:gap-12 mb-20">
           {/* Column 1: Logo & Socials */}
@@ -43,7 +54,7 @@ export default function Footer() {
               </a>
             </div>
           </div>
-          
+
           {/* Column 2: Company */}
           <div className="col-span-1 md:col-span-2">
             <h4 className="text-orange font-semibold text-xs tracking-wider uppercase mb-6">Company</h4>
@@ -108,8 +119,19 @@ export default function Footer() {
           <p className="text-white/30 text-sm">
             © {new Date().getFullYear()} DBL — Digital Business Leads. All rights reserved.
           </p>
-          <a href="mailto:hello@dbl.agency" className="text-white/45 text-sm hover:text-white transition-colors flex items-center gap-2">
-            hello@dbl.agency <ArrowRight size={14} />
+          <p className="text-white/30 text-xs font-sans">
+            Developed by{' '}
+            <a
+              href="https://zettasyn.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-orange hover:text-orange/80 hover:underline transition-all duration-300 font-semibold"
+            >
+              WebTurtle
+            </a>
+          </p>
+          <a href="mailto:admin@dblinfo.com" className="text-white/45 text-sm hover:text-white transition-colors flex items-center gap-2">
+            admin@dblinfo.com <ArrowRight size={14} />
           </a>
         </div>
       </div>

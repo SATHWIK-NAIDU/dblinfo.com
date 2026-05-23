@@ -14,7 +14,7 @@ const MAX_REQUESTS_PER_WINDOW = 5;
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 
   app.use(express.json());
 
@@ -78,50 +78,6 @@ async function startServer() {
       console.error('Contact endpoint error:', err);
       res.status(500).json({ error: 'Internal Server Error' });
     }
-  });
-
-  // API Route: Get Leads (Admin Panel)
-  app.get('/api/leads', async (req, res) => {
-     // In a real app, you would verify the admin's JWT token passed in Authorization header here using Supabase Auth.
-     const authHeader = req.headers.authorization;
-     if (!authHeader) {
-        return res.status(401).json({ error: 'Unauthorized' });
-     }
-     if (!supabaseUrl || !supabaseServiceKey) {
-       return res.status(200).json({ leads: [] });
-     }
-     
-     const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
-     const { data: { user }, error: authError } = await supabaseAdmin.auth.getUser(authHeader.replace('Bearer ', ''));
-
-     if (authError || !user) {
-        return res.status(401).json({ error: 'Unauthorized' });
-     }
-
-     const { data, error } = await supabaseAdmin.from('leads').select('*').order('created_at', { ascending: false });
-     if (error) {
-        return res.status(500).json({ error: 'Failed to fetch leads' });
-     }
-     res.status(200).json({ leads: data });
-  });
-
-  // API Route: Update Lead Status
-  app.put('/api/leads/:id', async (req, res) => {
-      const authHeader = req.headers.authorization;
-      if (!authHeader) return res.status(401).json({ error: 'Unauthorized' });
-      if (!supabaseUrl || !supabaseServiceKey) return res.status(200).json({ success: true });
-
-      const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
-      const { data: { user }, error: authError } = await supabaseAdmin.auth.getUser(authHeader.replace('Bearer ', ''));
-      if (authError || !user) return res.status(401).json({ error: 'Unauthorized' });
-
-      const { status } = req.body;
-      const { id } = req.params;
-
-      const { error } = await supabaseAdmin.from('leads').update({ status }).eq('id', id);
-      if (error) return res.status(500).json({ error: 'Failed to update lead' });
-
-      res.status(200).json({ success: true });
   });
 
 

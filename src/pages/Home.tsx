@@ -22,48 +22,48 @@ export default function Home() {
   }, []);
 
   const stats = [
-    { value: 250, suffix: "+", label: "Clients Served" },
-    { value: 12, suffix: "M+", label: "Leads Generated" },
-    { value: 8, suffix: "x", label: "Average ROAS" },
+    { value: 30, suffix: "+", label: "Clients Served" },
+    { value: 120, suffix: "K+", label: "Leads Generated" },
+    { value: 7.5, suffix: "x", label: "Average ROAS" },
     { value: 97, suffix: "%", label: "Retention Rate" },
   ];
 
   const services = [
-    { 
-      icon: Zap, 
-      title: "Performance Marketing", 
-      desc: "Data-driven campaigns engineered for measurable ROI across every digital search and social channel." 
+    {
+      icon: Zap,
+      title: "Performance Marketing",
+      desc: "Data-driven campaigns engineered for measurable ROI across every digital search and social channel."
     },
-    { 
-      icon: Users, 
-      title: "Influencer Marketing", 
-      desc: "Authentic creator partnerships that amplify brand reach, credibility, and organic search interest." 
+    {
+      icon: Users,
+      title: "Influencer Marketing",
+      desc: "Authentic creator partnerships that amplify brand reach, credibility, and organic search interest."
     },
-    { 
-      icon: BarChart3, 
-      title: "Lead Generation", 
-      desc: "High-converting funnels engineered specifically to capture, score, and nurture premium qualified deals." 
+    {
+      icon: BarChart3,
+      title: "Lead Generation",
+      desc: "High-converting funnels engineered specifically to capture, score, and nurture premium qualified deals."
     }
   ];
 
   const testimonials = [
-    { 
-      name: "Ravi Sharma", 
-      role: "CEO, TechNova India", 
-      text: "DBL transformed our digital presence. Our lead count tripled within 60 days of launch. Exceptional strategic guidance.", 
-      rating: 5 
+    {
+      name: "Harsha vardhan",
+      role: "Sales Head, realestate",
+      text: "DBL transformed our digital presence. Our lead count tripled within 60 days of launch. Exceptional strategic guidance.",
+      rating: 5
     },
-    { 
-      name: "Priya Kapoor", 
-      role: "Founder, LuxStyle", 
-      text: "The Meta Ads strategy they built for us is nothing short of brilliant. Premium quality leads and genuine growth.", 
-      rating: 5 
+    {
+      name: "Penvitha",
+      role: "Founder & MD, Presante Pvt Ltd",
+      text: "The UGC creators we hired from DBL for our brand Presante are top-notch. Highly recommend their services!",
+      rating: 5
     },
-    { 
-      name: "Aakash Mehta", 
-      role: "Director, GrowFast", 
-      text: "Our Google Ads ROAS went from 2x to 9x. DBL knows performance marketing better than any agency we've hired.", 
-      rating: 5 
+    {
+      name: "Akash",
+      role: "CEO, Cosoft Technologies",
+      text: "Their team is highly professional and responsive. The monthly reports are comprehensive and easy to understand. We're seeing consistent growth in our key metrics.",
+      rating: 5
     },
   ];
 
@@ -74,7 +74,7 @@ export default function Home() {
         {/* Background Decorative Blur Blobs */}
         <div className="absolute top-[-100px] right-[-100px] w-[500px] h-[500px] rounded-full bg-orange/10 blur-[80px] pointer-events-none z-0" />
         <div className="absolute bottom-[5%] left-[5%] w-[400px] h-[400px] rounded-full bg-brown-lt/5 blur-[80px] pointer-events-none z-0" />
-        
+
         {/* Decorative Grid or Stardust Overlay */}
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-[0.04] pointer-events-none z-0" />
 
@@ -135,22 +135,22 @@ export default function Home() {
             </div>
 
             <Reveal delay={0.3}>
-              <p className="text-base sm:text-lg md:text-xl text-brown/75 max-w-xl mb-10 leading-relaxed font-sans">
+              <p className="text-base sm:text-lg md:text-xl text-brown/85 max-w-xl mb-10 leading-relaxed font-sans">
                 We craft data-driven performance marketing strategies that turn your business into a consistent, scalable revenue machine. Premium execution. Measurable outcomes.
               </p>
             </Reveal>
 
             <Reveal delay={0.4}>
               <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                <Link 
-                  to="/contact" 
+                <Link
+                  to="/contact"
                   className="px-8 py-4 rounded-full bg-orange text-white font-bold text-sm tracking-wider uppercase hover:bg-orange-dk transition-all duration-300 flex items-center justify-center gap-2 group shadow-lg shadow-orange/20 hover:shadow-orange/35 hover:-translate-y-0.5"
                 >
                   Book a Strategy Call
                   <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform shrink-0" />
                 </Link>
-                <Link 
-                  to="/services" 
+                <Link
+                  to="/services"
                   className="px-8 py-4 rounded-full bg-transparent border-2 border-brown/20 text-brown font-bold text-sm tracking-wider uppercase hover:border-orange hover:text-orange transition-all duration-300 flex items-center justify-center hover:-translate-y-0.5"
                 >
                   Explore Services
@@ -161,10 +161,10 @@ export default function Home() {
             {/* Quick Hero Stats for visual density */}
             <Reveal delay={0.5}>
               <div className="flex gap-8 md:gap-12 mt-16 flex-wrap">
-                {[["250+", "Clients"], ["12M+", "Leads"], ["8x", "Avg ROAS"]].map(([n, l]) => (
+                {[["30+", "Clients"], ["120K+", "Leads"], ["7.5x", "Avg ROAS"]].map(([n, l]) => (
                   <div key={l} className="flex flex-col">
                     <div className="font-serif font-bold text-3xl md:text-4xl text-orange leading-none">{n}</div>
-                    <div className="text-xs uppercase tracking-widest text-brown/60 mt-2 font-semibold">{l}</div>
+                    <div className="text-xs uppercase tracking-widest text-brown/75 mt-2 font-semibold">{l}</div>
                   </div>
                 ))}
               </div>
@@ -174,12 +174,12 @@ export default function Home() {
 
         {/* Scroll indicator */}
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center select-none opacity-60">
-          <motion.div 
+          <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
             className="w-0.5 h-12 bg-gradient-to-b from-transparent to-orange"
           />
-          <span className="text-[10px] uppercase tracking-[0.25em] text-brown/65 mt-2 font-semibold">Scroll</span>
+          <span className="text-[10px] uppercase tracking-[0.25em] text-brown/80 mt-2 font-semibold">Scroll</span>
         </div>
       </section>
 
@@ -227,7 +227,7 @@ export default function Home() {
                   <div className="font-serif font-bold text-5xl md:text-6xl text-orange leading-none mb-4">
                     <AnimatedCounter target={s.value} suffix={s.suffix} />
                   </div>
-                  <div className="text-xs uppercase tracking-widest text-white/55 font-bold">{s.label}</div>
+                  <div className="text-xs uppercase tracking-widest text-white/80 font-bold">{s.label}</div>
                 </div>
               </Reveal>
             ))}
@@ -253,11 +253,11 @@ export default function Home() {
               </Reveal>
             </div>
             <Reveal direction="left" delay={0.2}>
-              <Link 
-                to="/services" 
+              <Link
+                to="/services"
                 className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase border-2 border-brown/20 text-brown hover:border-orange hover:text-orange px-6 py-3 rounded-full transition-all duration-300"
               >
-                View All Services 
+                View All Services
                 <ArrowRight size={14} />
               </Link>
             </Reveal>
@@ -274,18 +274,18 @@ export default function Home() {
                       <div className="w-14 h-14 rounded-2xl bg-orange/8 group-hover:bg-orange/20 flex items-center justify-center mb-8 text-orange transition-all duration-300">
                         <IconComp size={26} />
                       </div>
-                      
+
                       <h3 className="font-serif font-bold text-2xl mb-4 text-brown group-hover:text-white transition-colors duration-300">
                         {service.title}
                       </h3>
-                      
-                      <p className="text-sm leading-relaxed text-brown/70 group-hover:text-white/60 transition-colors duration-300 mb-8">
+
+                      <p className="text-sm leading-relaxed text-brown/85 group-hover:text-white/80 transition-colors duration-300 mb-8">
                         {service.desc}
                       </p>
                     </div>
 
                     <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-orange">
-                      Learn More 
+                      Learn More
                       <ArrowRight size={14} className="group-hover:translate-x-1.5 transition-transform duration-300" />
                     </div>
                   </div>
@@ -306,11 +306,11 @@ export default function Home() {
                 Strategy Built for <em className="text-orange italic font-serif font-medium">Revenue</em>
               </h2>
               <div className="w-12 h-[3px] bg-orange mb-8 rounded-full" />
-              
-              <p className="text-brown/70 text-base md:text-lg mb-10 leading-relaxed font-sans">
+
+              <p className="text-brown/85 text-base md:text-lg mb-10 leading-relaxed font-sans">
                 We don't just run ads — we engineer growth systems. Every campaign is architected around your business goals, not vanity metrics. We focus exclusively on the metrics that actually move your bottom line.
               </p>
-              
+
               <ul className="space-y-4 mb-10">
                 {[
                   "Full-funnel performance strategy",
@@ -327,8 +327,8 @@ export default function Home() {
                 ))}
               </ul>
 
-              <Link 
-                to="/about" 
+              <Link
+                to="/about"
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-orange text-white font-bold text-sm tracking-wider uppercase hover:bg-orange-dk shadow-lg shadow-orange/15 hover:shadow-orange/25 transition-all duration-300 hover:-translate-y-0.5"
               >
                 About DBL
@@ -342,12 +342,12 @@ export default function Home() {
             <div className="relative aspect-[4/3] bg-white border border-brown/8 rounded-3xl overflow-hidden shadow-[0_16px_40px_rgba(59,35,20,0.06)] p-8 md:p-12 flex flex-col justify-between">
               {/* Soft background blob */}
               <div className="absolute top-[-100px] right-[-100px] w-64 h-64 bg-orange/10 rounded-full blur-3xl pointer-events-none" />
-              
+
               {/* Top info */}
               <div className="relative z-10 flex justify-between items-start">
                 <div>
                   <h4 className="font-serif font-bold text-xl text-brown mb-1">Growth Index</h4>
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-brown/40">DBL Client Average</p>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-brown/60">DBL Client Average</p>
                 </div>
                 <div className="bg-orange/10 text-orange font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-orange/10">
                   +340% YoY
@@ -358,7 +358,7 @@ export default function Home() {
               <div className="relative z-10 h-[50%] flex items-end justify-center gap-3 sm:gap-4 md:gap-5">
                 {[45, 65, 50, 85, 70, 100].map((height, i) => (
                   <div key={i} className="w-full bg-[#F5EDE3] rounded-t-lg relative h-full flex items-end">
-                    <motion.div 
+                    <motion.div
                       initial={{ height: 0 }}
                       whileInView={{ height: `${height}%` }}
                       viewport={{ once: true }}
@@ -369,7 +369,7 @@ export default function Home() {
                 ))}
               </div>
 
-              <div className="relative z-10 flex justify-between items-center text-[10px] uppercase font-bold tracking-widest text-brown/40 border-t border-brown/5 pt-6">
+              <div className="relative z-10 flex justify-between items-center text-[10px] uppercase font-bold tracking-widest text-brown/60 border-t border-brown/5 pt-6">
                 <span>Phase 1</span>
                 <span>Phase 2</span>
                 <span>Phase 3</span>
@@ -413,7 +413,7 @@ export default function Home() {
                       ))}
                     </div>
 
-                    <p className="text-sm md:text-base leading-relaxed text-white/80 font-medium italic mb-8 font-sans">
+                    <p className="text-sm md:text-base leading-relaxed text-white/90 font-medium italic mb-8 font-sans">
                       "{t.text}"
                     </p>
                   </div>
@@ -440,7 +440,7 @@ export default function Home() {
               Ready to <em className="italic font-serif font-medium text-cream">Dominate</em> Your Market?
             </h2>
           </Reveal>
-          
+
           <Reveal delay={0.15}>
             <p className="text-base sm:text-lg md:text-xl text-cream/90 max-w-2xl mx-auto mt-6 mb-12 leading-relaxed font-medium font-sans">
               Let's build a growth engine for your business. Speak with our growth strategists today and start scaling.
@@ -449,14 +449,14 @@ export default function Home() {
 
           <Reveal delay={0.25}>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link 
-                to="/contact" 
+              <Link
+                to="/contact"
                 className="px-8 py-4 rounded-full bg-white text-brown font-bold text-sm tracking-wider uppercase hover:shadow-2xl hover:shadow-white/20 transition-all duration-300 hover:-translate-y-0.5 w-full sm:w-auto text-center"
               >
                 Book Free Strategy Call
               </Link>
-              <Link 
-                to="/services" 
+              <Link
+                to="/services"
                 className="px-8 py-4 rounded-full bg-transparent border-2 border-white/40 text-white font-bold text-sm tracking-wider uppercase hover:border-white hover:text-white transition-all duration-300 hover:-translate-y-0.5 w-full sm:w-auto text-center"
               >
                 View Our Services

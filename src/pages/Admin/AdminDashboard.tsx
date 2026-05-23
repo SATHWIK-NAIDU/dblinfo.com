@@ -49,9 +49,9 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     const term = searchTerm.toLowerCase();
-    const filtered = leads.filter(l => 
-      l.name?.toLowerCase().includes(term) || 
-      l.email?.toLowerCase().includes(term) || 
+    const filtered = leads.filter(l =>
+      l.name?.toLowerCase().includes(term) ||
+      l.email?.toLowerCase().includes(term) ||
       l.company?.toLowerCase().includes(term)
     );
     setFilteredLeads(filtered);
@@ -76,26 +76,26 @@ export default function AdminDashboard() {
 
   if (!supabase) {
     return (
-      <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-8 text-center text-zinc-400">
+      <div className="bg-white border border-brown/10 rounded-3xl p-10 text-center text-brown/70 font-sans shadow-md">
         Supabase is not configured. Admin panel depends on Supabase connection.
       </div>
     );
   }
 
   return (
-    <div>
-      <div className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <h1 className="text-3xl font-bold tracking-tight text-white">Lead Dashboard</h1>
-        <div className="relative w-full md:w-72">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-500">
+    <div className="space-y-8">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <h1 className="text-3xl font-serif font-bold tracking-tight text-brown">Lead Dashboard</h1>
+        <div className="relative w-full md:w-80">
+          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-brown/50">
             <Search size={16} />
           </div>
           <input
             type="text"
-            placeholder="Search leads..."
+            placeholder="Search leads by name, email or company..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="block w-full pl-10 pr-3 py-2 border border-zinc-800 rounded-md leading-5 bg-zinc-900 text-zinc-300 placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="block w-full pl-10 pr-4 py-2.5 border border-brown/15 rounded-xl leading-5 bg-white text-brown placeholder-brown/40 focus:outline-none focus:ring-1 focus:ring-orange focus:border-orange sm:text-sm font-sans font-medium transition-all"
           />
         </div>
       </div>
@@ -103,31 +103,30 @@ export default function AdminDashboard() {
       {/* Mobile Card Layout (Visible on mobile/tablet, hidden on desktop) */}
       <div className="block md:hidden space-y-4">
         {loading ? (
-          <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-8 text-center text-zinc-500">
+          <div className="bg-white border border-brown/8 rounded-2xl p-8 text-center text-brown/50 font-medium">
             Loading leads...
           </div>
         ) : filteredLeads.length === 0 ? (
-          <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-8 text-center text-zinc-500">
+          <div className="bg-white border border-brown/8 rounded-2xl p-8 text-center text-brown/50 font-medium">
             No leads found.
           </div>
         ) : (
           filteredLeads.map((lead) => (
-            <div key={lead.id} className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4 hover:border-zinc-700 transition-colors">
+            <div key={lead.id} className="bg-white border border-brown/8 rounded-2xl p-5 space-y-4 hover:border-orange/20 transition-all duration-300 shadow-sm">
               <div className="flex justify-between items-start gap-2">
                 <div>
-                  <div className="text-[10px] sm:text-xs text-zinc-400 font-medium">{new Date(lead.created_at).toLocaleDateString()}</div>
-                  <div className="text-base font-bold text-white mt-0.5 leading-tight">{lead.name}</div>
-                  <div className="text-xs text-zinc-400 mt-0.5">{lead.company || 'No Company'}</div>
+                  <div className="text-[10px] text-brown/50 font-bold uppercase tracking-wider">{new Date(lead.created_at).toLocaleDateString()}</div>
+                  <div className="text-lg font-bold text-brown font-serif mt-0.5 leading-tight">{lead.name}</div>
+                  <div className="text-xs text-brown/70 mt-0.5 font-semibold">{lead.company || 'No Company'}</div>
                 </div>
                 <div className="shrink-0">
                   <select
                     value={lead.status || 'New'}
                     onChange={(e) => updateStatus(lead.id, e.target.value)}
-                    className={`text-xs rounded-full px-2.5 py-1 font-semibold bg-zinc-950 border focus:outline-none transition-colors ${
-                      lead.status === 'Closed' ? 'border-green-500/30 text-green-400' :
-                      lead.status === 'Contacted' ? 'border-blue-500/30 text-blue-400' :
-                      'border-yellow-500/30 text-yellow-400'
-                    }`}
+                    className={`text-xs rounded-full px-3 py-1 font-bold bg-[#FAF6F1] border focus:outline-none transition-colors cursor-pointer ${lead.status === 'Closed' ? 'border-green-600/20 text-green-700 bg-green-500/5' :
+                        lead.status === 'Contacted' ? 'border-blue-600/20 text-blue-700 bg-blue-500/5' :
+                          'border-orange/20 text-orange bg-orange/5'
+                      }`}
                   >
                     <option value="New">New</option>
                     <option value="Contacted">Contacted</option>
@@ -136,33 +135,33 @@ export default function AdminDashboard() {
                 </div>
               </div>
 
-              <div className="border-t border-zinc-800 pt-3 grid grid-cols-2 gap-4 text-xs">
+              <div className="border-t border-brown/10 pt-4 grid grid-cols-2 gap-4 text-xs">
                 <div>
-                  <div className="text-zinc-500 font-medium">Email</div>
-                  <a href={`mailto:${lead.email}`} className="text-zinc-300 hover:text-white transition-colors break-all block mt-0.5">
+                  <div className="text-brown/55 font-bold uppercase tracking-widest text-[9px] mb-0.5">Email</div>
+                  <a href={`mailto:${lead.email}`} className="text-brown hover:text-orange transition-colors font-semibold break-all block">
                     {lead.email}
                   </a>
                 </div>
                 <div>
-                  <div className="text-zinc-500 font-medium">Phone</div>
-                  <a href={`tel:${lead.phone}`} className="text-zinc-300 hover:text-white transition-colors block mt-0.5">
+                  <div className="text-brown/55 font-bold uppercase tracking-widest text-[9px] mb-0.5">Phone</div>
+                  <a href={`tel:${lead.phone}`} className="text-brown hover:text-orange transition-colors font-semibold block">
                     {lead.phone || '-'}
                   </a>
                 </div>
                 <div>
-                  <div className="text-zinc-500 font-medium">Budget</div>
-                  <div className="text-zinc-300 mt-0.5">{lead.budget || '-'}</div>
+                  <div className="text-brown/55 font-bold uppercase tracking-widest text-[9px] mb-0.5">Budget</div>
+                  <div className="text-brown font-semibold">{lead.budget || '-'}</div>
                 </div>
                 <div>
-                  <div className="text-zinc-500 font-medium">Interest</div>
-                  <div className="text-indigo-400 font-semibold mt-0.5">{lead.services_interested || '-'}</div>
+                  <div className="text-brown/55 font-bold uppercase tracking-widest text-[9px] mb-0.5">Interest</div>
+                  <div className="text-orange font-bold">{lead.services_interested || '-'}</div>
                 </div>
               </div>
 
               {lead.message && (
-                <div className="bg-zinc-950/50 border border-zinc-800/80 rounded-lg p-3">
-                  <div className="text-zinc-500 text-[10px] font-bold uppercase tracking-wider mb-1">Message</div>
-                  <div className="text-zinc-400 text-xs leading-relaxed whitespace-pre-wrap">{lead.message}</div>
+                <div className="bg-[#FAF6F1] border border-brown/5 rounded-xl p-3.5">
+                  <div className="text-brown/50 text-[9px] font-bold uppercase tracking-widest mb-1">Message</div>
+                  <div className="text-brown/80 text-xs leading-relaxed whitespace-pre-wrap font-medium">{lead.message}</div>
                 </div>
               )}
             </div>
@@ -171,55 +170,58 @@ export default function AdminDashboard() {
       </div>
 
       {/* Desktop/Tablet Table Layout (Visible on desktop/laptops, hidden on mobile) */}
-      <div className="hidden md:block bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
+      <div className="hidden md:block bg-white border border-brown/8 rounded-2xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-zinc-800">
-            <thead className="bg-zinc-950/50">
+          <table className="min-w-full divide-y divide-brown/10">
+            <thead className="bg-[#FAF6F1]/80 border-b border-brown/10">
               <tr>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-zinc-400 uppercase tracking-wider">Date</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-zinc-400 uppercase tracking-wider">Contact Info</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-zinc-400 uppercase tracking-wider">Details</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-zinc-400 uppercase tracking-wider">Message</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-zinc-400 uppercase tracking-wider">Status</th>
+                <th scope="col" className="px-6 py-4.5 text-left text-[10px] font-extrabold text-brown/60 uppercase tracking-widest">Date</th>
+                <th scope="col" className="px-6 py-4.5 text-left text-[10px] font-extrabold text-brown/60 uppercase tracking-widest">Contact Info</th>
+                <th scope="col" className="px-6 py-4.5 text-left text-[10px] font-extrabold text-brown/60 uppercase tracking-widest">Details</th>
+                <th scope="col" className="px-6 py-4.5 text-left text-[10px] font-extrabold text-brown/60 uppercase tracking-widest">Message</th>
+                <th scope="col" className="px-6 py-4.5 text-left text-[10px] font-extrabold text-brown/60 uppercase tracking-widest">Status</th>
               </tr>
             </thead>
-            <tbody className="bg-zinc-900 divide-y divide-zinc-800">
+            <tbody className="bg-white divide-y divide-brown/10">
               {loading ? (
                 <tr>
-                  <td colSpan={5} className="px-6 py-8 text-center text-zinc-500">Loading leads...</td>
+                  <td colSpan={5} className="px-6 py-10 text-center text-brown/50 font-medium">Loading leads...</td>
                 </tr>
               ) : filteredLeads.length === 0 ? (
                 <tr>
-                   <td colSpan={5} className="px-6 py-8 text-center text-zinc-500">No leads found.</td>
+                  <td colSpan={5} className="px-6 py-10 text-center text-brown/50 font-medium">No leads found.</td>
                 </tr>
               ) : (
                 filteredLeads.map((lead) => (
-                  <tr key={lead.id} className="hover:bg-zinc-800/50 transition-colors">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-zinc-400">
+                  <tr key={lead.id} className="hover:bg-brown/2 transition-colors">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-brown/70 font-semibold">
                       {new Date(lead.created_at).toLocaleDateString()}
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm font-medium text-white">{lead.name}</div>
-                      <div className="text-sm text-zinc-400">{lead.email}</div>
-                      <div className="text-sm text-zinc-500">{lead.phone}</div>
+                      <div className="text-base font-bold font-serif text-brown">{lead.name}</div>
+                      <div className="text-xs text-brown/70 font-medium mt-0.5">
+                        <a href={`mailto:${lead.email}`} className="hover:text-orange transition-colors">
+                          {lead.email}
+                        </a>
+                      </div>
+                      <div className="text-xs text-brown/50 font-semibold mt-0.5">{lead.phone}</div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm text-zinc-300">{lead.company || '-'}</div>
-                      <div className="text-xs text-zinc-500 mt-1">Budget: {lead.budget || '-'}</div>
-                      <div className="text-xs text-indigo-400 mt-1">{lead.services_interested}</div>
+                      <div className="text-sm font-bold text-brown">{lead.company || '-'}</div>
+                      <div className="text-xs text-brown/60 mt-1 font-semibold">Budget: <span className="text-brown">{lead.budget || '-'}</span></div>
+                      <div className="text-xs text-orange font-bold mt-1">{lead.services_interested}</div>
                     </td>
-                    <td className="px-6 py-4 text-sm text-zinc-400 max-w-xs truncate" title={lead.message}>
+                    <td className="px-6 py-4 text-sm text-brown/85 max-w-xs truncate font-medium" title={lead.message}>
                       {lead.message}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <select
                         value={lead.status || 'New'}
                         onChange={(e) => updateStatus(lead.id, e.target.value)}
-                        className={`text-sm rounded-full px-3 py-1 font-medium bg-zinc-950 border focus:outline-none ${
-                          lead.status === 'Closed' ? 'border-green-500/30 text-green-400' :
-                          lead.status === 'Contacted' ? 'border-blue-500/30 text-blue-400' :
-                          'border-yellow-500/30 text-yellow-400'
-                        }`}
+                        className={`text-xs rounded-full px-3 py-1 font-bold bg-[#FAF6F1] border focus:outline-none transition-colors cursor-pointer ${lead.status === 'Closed' ? 'border-green-600/20 text-green-700 bg-green-500/5' :
+                            lead.status === 'Contacted' ? 'border-blue-600/20 text-blue-700 bg-blue-500/5' :
+                              'border-orange/20 text-orange bg-orange/5'
+                          }`}
                       >
                         <option value="New">New</option>
                         <option value="Contacted">Contacted</option>

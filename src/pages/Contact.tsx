@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Mail, Phone, MapPin, CheckCircle2, ChevronDown, Instagram, Linkedin, MessageSquare } from 'lucide-react';
+import { Mail, Phone, MapPin, CheckCircle2, ChevronDown, Instagram, Linkedin, MessageSquare, Youtube, X } from 'lucide-react';
 import Reveal from '../components/common/Reveal';
 
 export default function Contact() {
@@ -9,6 +9,7 @@ export default function Contact() {
     company: '',
     phone: '',
     email: '',
+    GST: '',
     budget: '',
     services: '',
     message: ''
@@ -18,14 +19,14 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('submitting');
-    
+
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
-      
+
       const data = await res.json();
       if (res.ok) {
         setStatus('success');
@@ -45,23 +46,23 @@ export default function Contact() {
   };
 
   const infoCards = [
-    { 
-      icon: Phone, 
-      label: "WhatsApp / Phone", 
-      value: "+91 98765 43210", 
-      sub: "Mon–Sat, 9 AM – 7 PM IST" 
+    {
+      icon: Phone,
+      label: "WhatsApp / Phone",
+      value: "+91 70135 28255",
+      sub: "Mon–Sat, 9 AM – 7 PM IST"
     },
-    { 
-      icon: Mail, 
-      label: "Email Support", 
-      value: "hello@dblinfo.com", 
-      sub: "Average response within 2 hours" 
+    {
+      icon: Mail,
+      label: "Email Support",
+      value: "admin@dblinfo.com",
+      sub: "Average response within 2 hours"
     },
-    { 
-      icon: MapPin, 
-      label: "Main HQ", 
-      value: "Hyderabad, India", 
-      sub: "Serving Ambitious Brands Worldwide" 
+    {
+      icon: MapPin,
+      label: "Main HQ",
+      value: "Hyderabad, Telangana, India",
+      sub: "Serving Ambitious Brands Worldwide"
     },
   ];
 
@@ -81,7 +82,7 @@ export default function Contact() {
               </h1>
             </Reveal>
             <Reveal delay={0.2}>
-              <p className="text-base sm:text-lg md:text-xl text-white/60 leading-relaxed font-sans font-medium">
+              <p className="text-base sm:text-lg md:text-xl text-white/85 leading-relaxed font-sans font-medium">
                 Ready to scale your leads and revenue? Tell us about your business, and our marketing strategists will build you a custom growth plan.
               </p>
             </Reveal>
@@ -92,7 +93,7 @@ export default function Contact() {
       {/* ── CONTACT BODY SECTION ── */}
       <section className="py-24 bg-cream">
         <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-          
+
           {/* LEFT: Info & Details Column (5 cols) */}
           <div className="lg:col-span-5 flex flex-col gap-10">
             <Reveal direction="right">
@@ -101,8 +102,8 @@ export default function Contact() {
                   Contact <em className="text-orange italic font-serif font-medium">Details</em>
                 </h2>
                 <div className="w-12 h-[3px] bg-orange mb-6 rounded-full" />
-                <p className="text-sm sm:text-base leading-relaxed text-brown/70 font-sans">
-                  Reach out through any channel. We are highly responsive and typically prepare custom strategy audits within 24 hours of form submission.
+                <p className="text-sm sm:text-base leading-relaxed text-brown/85 font-sans">
+                  Reach out through any channel. We are highly responsive and typically prepare custom strategy audits within 48 hours of form submission.
                 </p>
               </div>
             </Reveal>
@@ -124,7 +125,7 @@ export default function Contact() {
                         <div className="text-base font-bold text-brown">
                           {item.value}
                         </div>
-                        <div className="text-xs text-brown/50 mt-1 font-sans">
+                        <div className="text-xs text-brown/70 mt-1 font-sans">
                           {item.sub}
                         </div>
                       </div>
@@ -137,13 +138,15 @@ export default function Contact() {
             {/* Social Channels */}
             <Reveal direction="right" delay={0.35}>
               <div className="flex flex-col items-start gap-4">
-                <div className="text-[10px] font-bold uppercase tracking-widest text-brown/50 font-sans">
+                <div className="text-[10px] font-bold uppercase tracking-widest text-brown/70 font-sans">
                   Follow DBL Agency
                 </div>
                 <div className="flex gap-4">
                   {[
                     { icon: Instagram, label: "Instagram", url: "#" },
-                    { icon: Linkedin, label: "LinkedIn", url: "#" }
+                    { icon: Linkedin, label: "LinkedIn", url: "#" },
+                    { icon: Youtube, label: "Youtube", url: "#" },
+                    { icon: X, label: "X", url: "#" }
                   ].map((soc, i) => {
                     const IconC = soc.icon;
                     return (
@@ -166,7 +169,7 @@ export default function Contact() {
                 <div className="absolute top-[-30px] right-[-30px] w-24 h-24 bg-orange/15 rounded-full blur-2xl" />
                 <MapPin className="text-orange mb-3" size={32} />
                 <span className="text-xs font-bold uppercase tracking-widest text-brown/80 font-sans">Hyderabad, India</span>
-                <span className="text-[10px] text-brown/40 uppercase font-semibold tracking-wider mt-1">Available Globally</span>
+                <span className="text-[10px] text-brown/65 uppercase font-semibold tracking-wider mt-1">Available Globally</span>
               </div>
             </Reveal>
           </div>
@@ -175,19 +178,19 @@ export default function Contact() {
           <div className="lg:col-span-7">
             <Reveal direction="left">
               <div className="relative bg-white border border-brown/8 rounded-3xl p-8 md:p-12 shadow-[0_16px_48px_rgba(59,35,20,0.06)] overflow-hidden">
-                
+
                 {/* Custom Overlay for Success view */}
                 <AnimatePresence>
                   {status === 'success' && (
-                    <motion.div 
+                    <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       className="absolute inset-0 z-10 bg-white flex flex-col items-center justify-center p-8 text-center"
                     >
-                      <motion.div 
-                        initial={{ scale: 0 }} 
-                        animate={{ scale: 1, rotate: 360 }} 
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1, rotate: 360 }}
                         transition={{ type: "spring", stiffness: 100, damping: 15 }}
                         className="w-20 h-20 bg-orange/10 text-orange rounded-full flex items-center justify-center mb-6 shadow-md shadow-orange/5"
                       >
@@ -197,7 +200,7 @@ export default function Contact() {
                       <p className="text-brown/65 text-sm md:text-base max-w-sm mb-8 leading-relaxed font-sans">
                         Thank you for reaching out. A growth strategist will analyze your digital footprint and contact you within 2 hours.
                       </p>
-                      <button 
+                      <button
                         onClick={() => setStatus('idle')}
                         className="px-8 py-3.5 rounded-full bg-orange text-white font-bold text-xs tracking-wider uppercase hover:bg-orange-dk transition-all duration-300 shadow-md hover:shadow-lg shadow-orange/15 hover:shadow-orange/25"
                       >
@@ -210,7 +213,7 @@ export default function Contact() {
                 <h3 className="font-serif font-bold text-3xl text-brown mb-2">
                   Send Us a <em className="text-orange italic font-serif font-medium">Message</em>
                 </h3>
-                <p className="text-xs sm:text-sm text-brown/60 mb-8 font-sans">
+                <p className="text-xs sm:text-sm text-brown/75 mb-8 font-sans">
                   Provide your business scope below to unlock a comprehensive performance audit from our team.
                 </p>
 
@@ -218,29 +221,29 @@ export default function Contact() {
                   {/* Name and Email side-by-side */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="flex flex-col gap-2">
-                      <label htmlFor="name" className="text-[10px] font-bold uppercase tracking-widest text-brown/50 font-sans">Full Name *</label>
-                      <input 
-                        required 
-                        type="text" 
-                        id="name" 
-                        name="name" 
-                        value={formData.name} 
-                        onChange={handleChange} 
-                        className="w-full bg-[#FAF6F1] border-1.5 border-brown/15 rounded-xl px-4 py-3.5 text-sm text-brown focus:outline-none focus:border-orange transition-all font-sans font-medium" 
-                        placeholder="John Doe" 
+                      <label htmlFor="name" className="text-[10px] font-bold uppercase tracking-widest text-brown/75 font-sans">Full Name *</label>
+                      <input
+                        required
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        className="w-full bg-[#FAF6F1] border-1.5 border-brown/15 rounded-xl px-4 py-3.5 text-sm text-brown focus:outline-none focus:border-orange transition-all font-sans font-medium"
+                        placeholder="John Doe"
                       />
                     </div>
                     <div className="flex flex-col gap-2">
-                      <label htmlFor="email" className="text-[10px] font-bold uppercase tracking-widest text-brown/50 font-sans">Email Address *</label>
-                      <input 
-                        required 
-                        type="email" 
-                        id="email" 
-                        name="email" 
-                        value={formData.email} 
-                        onChange={handleChange} 
-                        className="w-full bg-[#FAF6F1] border-1.5 border-brown/15 rounded-xl px-4 py-3.5 text-sm text-brown focus:outline-none focus:border-orange transition-all font-sans font-medium" 
-                        placeholder="john@company.com" 
+                      <label htmlFor="email" className="text-[10px] font-bold uppercase tracking-widest text-brown/75 font-sans">Email Address *</label>
+                      <input
+                        required
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        className="w-full bg-[#FAF6F1] border-1.5 border-brown/15 rounded-xl px-4 py-3.5 text-sm text-brown focus:outline-none focus:border-orange transition-all font-sans font-medium"
+                        placeholder="john@company.com"
                       />
                     </div>
                   </div>
@@ -248,27 +251,44 @@ export default function Contact() {
                   {/* Company & Phone */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="flex flex-col gap-2">
-                      <label htmlFor="company" className="text-[10px] font-bold uppercase tracking-widest text-brown/50 font-sans">Company Name</label>
-                      <input 
-                        type="text" 
-                        id="company" 
-                        name="company" 
-                        value={formData.company} 
-                        onChange={handleChange} 
-                        className="w-full bg-[#FAF6F1] border-1.5 border-brown/15 rounded-xl px-4 py-3.5 text-sm text-brown focus:outline-none focus:border-orange transition-all font-sans font-medium" 
-                        placeholder="Acme Corp" 
+                      <label htmlFor="company" className="text-[10px] font-bold uppercase tracking-widest text-brown/75 font-sans">Phone *</label>
+                      <input
+                        required
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        className="w-full bg-[#FAF6F1] border-1.5 border-brown/15 rounded-xl px-4 py-3.5 text-sm text-brown focus:outline-none focus:border-orange transition-all font-sans font-medium"
+                        placeholder="+91 98765 43210"
                       />
                     </div>
                     <div className="flex flex-col gap-2">
-                      <label htmlFor="phone" className="text-[10px] font-bold uppercase tracking-widest text-brown/50 font-sans">Phone Number</label>
-                      <input 
-                        type="tel" 
-                        id="phone" 
-                        name="phone" 
-                        value={formData.phone} 
-                        onChange={handleChange} 
-                        className="w-full bg-[#FAF6F1] border-1.5 border-brown/15 rounded-xl px-4 py-3.5 text-sm text-brown focus:outline-none focus:border-orange transition-all font-sans font-medium" 
-                        placeholder="+91 98765 43210" 
+                      <label htmlFor="company" className="text-[10px] font-bold uppercase tracking-widest text-brown/75 font-sans">Company Name</label>
+                      <input
+                        type="text"
+                        id="company"
+                        name="company"
+                        value={formData.company}
+                        onChange={handleChange}
+                        className="w-full bg-[#FAF6F1] border-1.5 border-brown/15 rounded-xl px-4 py-3.5 text-sm text-brown focus:outline-none focus:border-orange transition-all font-sans font-medium"
+                        placeholder="acme corp"
+                      />
+                    </div>
+                  </div>
+
+                  {/* GSTIN */}
+                  <div className="">
+                    <div className="flex flex-col gap-2">
+                      <label htmlFor="gstin" className="text-[10px] font-bold uppercase tracking-widest text-brown/75 font-sans">GSTIN optional</label>
+                      <input
+                        type="text"
+                        id="gstin"
+                        name="gstin"
+                        value={formData.gstin}
+                        onChange={handleChange}
+                        className="w-full bg-[#FAF6F1] border-1.5 border-brown/15 rounded-xl px-4 py-3.5 text-sm text-brown focus:outline-none focus:border-orange transition-all font-sans font-medium"
+                        placeholder="12ABCDE5678F1Z0"
                       />
                     </div>
                   </div>
@@ -276,13 +296,13 @@ export default function Contact() {
                   {/* Budget & Primary Interest Select elements */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="flex flex-col gap-2 relative">
-                      <label htmlFor="budget" className="text-[10px] font-bold uppercase tracking-widest text-brown/50 font-sans">Marketing Budget / Month</label>
+                      <label htmlFor="budget" className="text-[10px] font-bold uppercase tracking-widest text-brown/75 font-sans">Marketing Budget / Month</label>
                       <div className="relative">
-                        <select 
-                          id="budget" 
-                          name="budget" 
-                          value={formData.budget} 
-                          onChange={handleChange} 
+                        <select
+                          id="budget"
+                          name="budget"
+                          value={formData.budget}
+                          onChange={handleChange}
                           className="w-full bg-[#FAF6F1] border-1.5 border-brown/15 rounded-xl px-4 py-3.5 pr-10 text-sm text-brown focus:outline-none focus:border-orange transition-all appearance-none font-sans font-medium"
                         >
                           <option value="">Select a range</option>
@@ -296,15 +316,15 @@ export default function Contact() {
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="flex flex-col gap-2 relative">
-                      <label htmlFor="services" className="text-[10px] font-bold uppercase tracking-widest text-brown/50 font-sans">Service of Interest</label>
+                      <label htmlFor="services" className="text-[10px] font-bold uppercase tracking-widest text-brown/75 font-sans">Service of Interest</label>
                       <div className="relative">
-                        <select 
-                          id="services" 
-                          name="services" 
-                          value={formData.services} 
-                          onChange={handleChange} 
+                        <select
+                          id="services"
+                          name="services"
+                          value={formData.services}
+                          onChange={handleChange}
                           className="w-full bg-[#FAF6F1] border-1.5 border-brown/15 rounded-xl px-4 py-3.5 pr-10 text-sm text-brown focus:outline-none focus:border-orange transition-all appearance-none font-sans font-medium"
                         >
                           <option value="">Select service</option>
@@ -313,6 +333,7 @@ export default function Contact() {
                           <option value="Google Ads">Google Ads</option>
                           <option value="Streaming Ads">Streaming Ads</option>
                           <option value="Influencer/Celebrity">Influencer Marketing</option>
+                          <option value="UGC Creators">UGC Creators</option>
                           <option value="Web/App Dev">Web & App Dev</option>
                           <option value="Full Retainer">Full Suite Package</option>
                         </select>
@@ -325,15 +346,15 @@ export default function Contact() {
 
                   {/* Project Details textarea */}
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="message" className="text-[10px] font-bold uppercase tracking-widest text-brown/50 font-sans">Project Scope & Details *</label>
-                    <textarea 
-                      required 
-                      id="message" 
-                      name="message" 
-                      value={formData.message} 
-                      onChange={handleChange} 
-                      rows={4} 
-                      className="w-full bg-[#FAF6F1] border-1.5 border-brown/15 rounded-xl px-4 py-3.5 text-sm text-brown focus:outline-none focus:border-orange transition-all resize-y font-sans font-medium leading-relaxed" 
+                    <label htmlFor="message" className="text-[10px] font-bold uppercase tracking-widest text-brown/75 font-sans">Project Scope & Details *</label>
+                    <textarea
+                      required
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      rows={4}
+                      className="w-full bg-[#FAF6F1] border-1.5 border-brown/15 rounded-xl px-4 py-3.5 text-sm text-brown focus:outline-none focus:border-orange transition-all resize-y font-sans font-medium leading-relaxed"
                       placeholder="Outline your target goals, acquisition bottlenecks, and current metrics..."
                     />
                   </div>
@@ -344,8 +365,8 @@ export default function Contact() {
                     </div>
                   )}
 
-                  <button 
-                    type="submit" 
+                  <button
+                    type="submit"
                     disabled={status === 'submitting'}
                     className="w-full bg-orange text-white font-bold text-xs tracking-wider uppercase py-4 rounded-xl hover:bg-orange-dk shadow-lg shadow-orange/15 hover:shadow-orange/25 transition-all duration-300 disabled:opacity-75 flex items-center justify-center gap-2 cursor-pointer"
                   >
@@ -365,12 +386,12 @@ export default function Contact() {
                     </div>
                     <div className="flex-grow">
                       <div className="text-xs font-bold text-[#1a7a3e] font-sans">Prefer WhatsApp?</div>
-                      <div className="text-[11px] text-brown/55 font-sans mt-0.5">Chat with our onboarding lead directly for faster replies.</div>
+                      <div className="text-[11px] text-brown/70 font-sans mt-0.5">Chat with our onboarding lead directly for faster replies.</div>
                     </div>
-                    <a 
-                      href="https://wa.me/919876543210" 
-                      target="_blank" 
-                      rel="noreferrer" 
+                    <a
+                      href="https://wa.me/917013528255"
+                      target="_blank"
+                      rel="noreferrer"
                       className="text-xs font-extrabold text-[#1a7a3e] hover:text-[#0f5427] transition-colors whitespace-nowrap uppercase tracking-widest font-sans"
                     >
                       Chat Now →

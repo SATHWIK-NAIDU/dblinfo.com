@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, CheckCircle2, ArrowRight } from 'lucide-react';
+import { supabase } from '../../lib/supabase';
 
 export default function NewsletterPopup() {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,9 +36,20 @@ export default function NewsletterPopup() {
     localStorage.setItem('dbl_newsletter_dismissed', 'true');
   };
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email.trim()) {
+      try {
+        if (supabase) {
+          const { error } = await supabase.from('newsletters').insert([{ email }]);
+          if (error) {
+            console.error('Error subscribing to newsletter via popup:', error);
+          }
+        }
+      } catch (err) {
+        console.error('Failed to subscribe email via popup:', err);
+      }
+      
       setStatus('success');
       localStorage.setItem('dbl_newsletter_subscribed', 'true');
       
@@ -76,7 +88,7 @@ export default function NewsletterPopup() {
             {/* Close Button */}
             <button 
               onClick={handleClose}
-              className="absolute top-5 right-5 text-brown/40 hover:text-orange hover:rotate-90 transition-all p-2 rounded-full cursor-pointer bg-brown/5 dark:bg-white/5 z-20 flex items-center justify-center"
+              className="absolute top-5 right-5 text-brown/60 hover:text-orange hover:rotate-90 transition-all p-2 rounded-full cursor-pointer bg-brown/5 z-20 flex items-center justify-center"
               aria-label="Close dialog"
             >
               <X size={18} />
@@ -97,7 +109,7 @@ export default function NewsletterPopup() {
                   <CheckCircle2 size={32} />
                 </motion.div>
                 <h3 className="font-serif font-bold text-3xl text-brown mb-2">Welcome to DBL ✦</h3>
-                <p className="text-brown/65 text-sm md:text-base max-w-xs leading-relaxed font-sans">
+                <p className="text-brown/80 text-sm md:text-base max-w-xs leading-relaxed font-sans">
                   Your growth subscription is confirmed. Prepare for weekly performance strategy breakdowns.
                 </p>
               </motion.div>
@@ -111,7 +123,7 @@ export default function NewsletterPopup() {
                   Unlock Strategic <em className="text-orange italic font-serif font-medium">Growth</em>
                 </h3>
                 
-                <p className="text-brown/70 text-sm md:text-base leading-relaxed mb-6 font-sans">
+                <p className="text-brown/85 text-sm md:text-base leading-relaxed mb-6 font-sans">
                   Join digital performance strategists. Receive weekly budget blueprints, conversion optimization frameworks, and custom ad workflows we build for high-growth brands.
                 </p>
 
@@ -123,7 +135,7 @@ export default function NewsletterPopup() {
                       placeholder="Enter your professional email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="flex-grow bg-[#FAF6F1] dark:bg-[#160B06] border-1.5 border-brown/15 rounded-xl px-4 py-3 text-sm text-brown focus:outline-none focus:border-orange transition-all font-sans font-medium"
+                      className="flex-grow bg-[#FAF6F1] border-1.5 border-brown/15 rounded-xl px-4 py-3 text-sm text-brown focus:outline-none focus:border-orange transition-all font-sans font-medium"
                     />
                     <button 
                       type="submit"
@@ -132,7 +144,7 @@ export default function NewsletterPopup() {
                       Subscribe <ArrowRight size={16} />
                     </button>
                   </div>
-                  <p className="text-[10px] text-brown/40 leading-relaxed font-sans">
+                  <p className="text-[10px] text-brown/60 leading-relaxed font-sans">
                     * Zero spam. High-signal strategic breakdowns only. Unsubscribe at any time.
                   </p>
                 </form>

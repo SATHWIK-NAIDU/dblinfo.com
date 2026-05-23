@@ -74,7 +74,7 @@ export default function Services() {
               </h1>
             </Reveal>
             <Reveal delay={0.2}>
-              <p className="text-base sm:text-lg md:text-xl text-white/60 leading-relaxed font-sans font-medium">
+              <p className="text-base sm:text-lg md:text-xl text-white/85 leading-relaxed font-sans font-medium">
                 Every service is delivered with strategy-first thinking, creative excellence, and a relentless focus on measurable business outcomes.
               </p>
             </Reveal>
@@ -114,7 +114,7 @@ export default function Services() {
                         <h3 className="font-serif font-bold text-2xl text-brown mb-4">
                           {s.title}
                         </h3>
-                        <p className="text-sm leading-relaxed text-brown/70 mb-8 font-sans">
+                        <p className="text-sm leading-relaxed text-brown/85 mb-8 font-sans">
                           {s.desc}
                         </p>
 
@@ -125,7 +125,7 @@ export default function Services() {
                               <div className="w-5 h-5 rounded-full bg-orange/10 flex items-center justify-center shrink-0">
                                 <Check size={11} className="text-orange" />
                               </div>
-                              <span className="text-xs font-semibold text-brown/80 font-sans">
+                              <span className="text-xs font-semibold text-brown/95 font-sans">
                                 {feature}
                               </span>
                             </div>
@@ -179,7 +179,7 @@ export default function Services() {
                       <IconComp size={20} />
                     </div>
                     <h4 className="font-serif font-bold text-lg text-brown mb-2">{c.title}</h4>
-                    <p className="text-xs leading-relaxed text-brown/65 font-sans">{c.desc}</p>
+                    <p className="text-xs leading-relaxed text-brown/80 font-sans">{c.desc}</p>
                   </div>
                 </Reveal>
               );
@@ -198,7 +198,7 @@ export default function Services() {
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
-            <p className="text-sm sm:text-base text-white/60 mt-4 mb-8 max-w-xl mx-auto font-sans leading-relaxed">
+              <p className="text-sm sm:text-base text-white/80 mt-4 mb-8 max-w-xl mx-auto font-sans leading-relaxed">
               We design bespoke campaigns and data-driven systems for complex business operations. Let's discuss your enterprise targets.
             </p>
           </Reveal>

@@ -7,13 +7,15 @@ export default function About() {
       name: "Sai Kiran Kuchimanchi",
       role: "Founder & Visionary",
       initials: "SK",
-      tagline: "Architecting digital futures with data-driven precision."
+      tagline: "Architecting digital futures with data-driven precision.",
+      image: "/images/kiran.jpeg"
     },
     {
       name: "Murili Mohan Kuchimanchi",
       role: "CEO",
       initials: "MM",
-      tagline: "Leading DBL with decades of transformational expertise."
+      tagline: "Leading DBL with decades of transformational expertise.",
+      image: "/images/murili-mohan.jpeg"
     },
   ];
 
@@ -131,12 +133,29 @@ export default function About() {
                   {/* Avatar / Photo placeholder */}
                   <div className="h-[280px] bg-gradient-to-br from-orange/10 via-brown/10 to-[#FAF6F1] flex items-center justify-center relative overflow-hidden">
                     <div className="absolute top-[-40px] right-[-40px] w-[180px] h-[180px] rounded-full bg-orange/10 blur-[30px]" />
-                    <div className="w-24 h-24 rounded-full bg-gradient-to-br from-orange to-orange-dk flex items-center justify-center text-white font-serif font-bold text-3xl tracking-tight shadow-xl group-hover:scale-105 transition-all duration-500">
+                    {t.image ? (
+                      <img
+                        src={t.image}
+                        alt={t.name}
+                        className="w-full h-full object-cover relative z-10 transition-transform duration-500 group-hover:scale-105"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                          const fallback = e.currentTarget.nextElementSibling as HTMLElement;
+                          if (fallback) fallback.style.display = 'flex';
+                        }}
+                      />
+                    ) : null}
+                    <div
+                      className="w-24 h-24 rounded-full bg-gradient-to-br from-orange to-orange-dk flex items-center justify-center text-white font-serif font-bold text-3xl tracking-tight shadow-xl group-hover:scale-105 transition-all duration-500 z-10"
+                      style={{ display: t.image ? 'none' : 'flex' }}
+                    >
                       {t.initials}
                     </div>
-                    <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm border border-orange/15 rounded-md px-2.5 py-1 text-[9px] uppercase tracking-widest text-orange font-bold">
-                      Photo Coming
-                    </div>
+                    {!t.image && (
+                      <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm border border-orange/15 rounded-md px-2.5 py-1 text-[9px] uppercase tracking-widest text-orange font-bold z-10">
+                        Photo Coming
+                      </div>
+                    )}
                   </div>
 
                   {/* Profile info block */}

@@ -133,20 +133,36 @@ export default function About() {
                   {/* Avatar / Photo placeholder */}
                   <div className="h-[280px] bg-gradient-to-br from-orange/10 via-brown/10 to-[#FAF6F1] flex items-center justify-center relative overflow-hidden">
                     <div className="absolute top-[-40px] right-[-40px] w-[180px] h-[180px] rounded-full bg-orange/10 blur-[30px]" />
+
                     {t.image ? (
-                      <img
-                        src={t.image}
-                        alt={t.name}
-                        className="w-full h-full object-cover relative z-10 transition-transform duration-500 group-hover:scale-105"
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none';
-                          const fallback = e.currentTarget.nextElementSibling as HTMLElement;
-                          if (fallback) fallback.style.display = 'flex';
-                        }}
-                      />
+                      <div className="relative z-10 flex items-center justify-center image-wrapper">
+                        {/* Outer accent ring with rotation animation on card hover */}
+                        <div className="absolute inset-0 -m-2 rounded-full border border-dashed border-orange/30 group-hover:rotate-45 transition-transform duration-1000" />
+
+                        {/* Inner photo circular container */}
+                        <div className="w-40 h-40 rounded-full overflow-hidden border-[6px] border-white shadow-xl bg-white relative z-10 transition-transform duration-500 group-hover:scale-105">
+                          <img
+                            src={t.image}
+                            alt={t.name}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none';
+                              // Hide the image-wrapper entirely and show fallback
+                              const card = e.currentTarget.closest('.group');
+                              if (card) {
+                                const wrapper = card.querySelector('.image-wrapper') as HTMLElement;
+                                const fallback = card.querySelector('.initials-fallback') as HTMLElement;
+                                if (wrapper) wrapper.style.display = 'none';
+                                if (fallback) fallback.style.display = 'flex';
+                              }
+                            }}
+                          />
+                        </div>
+                      </div>
                     ) : null}
+
                     <div
-                      className="w-24 h-24 rounded-full bg-gradient-to-br from-orange to-orange-dk flex items-center justify-center text-white font-serif font-bold text-3xl tracking-tight shadow-xl group-hover:scale-105 transition-all duration-500 z-10"
+                      className="initials-fallback w-24 h-24 rounded-full bg-gradient-to-br from-orange to-orange-dk flex items-center justify-center text-white font-serif font-bold text-3xl tracking-tight shadow-xl group-hover:scale-105 transition-all duration-500 z-10"
                       style={{ display: t.image ? 'none' : 'flex' }}
                     >
                       {t.initials}

@@ -7,10 +7,10 @@ interface Lead {
   id: string;
   name: string;
   email: string;
-  company_name: string;
+  company: string;
   phone: string;
   budget: string;
-  services_interested: string;
+  services: string;
   message: string;
   status: 'New' | 'Contacted' | 'Closed';
   created_at: string;
@@ -56,7 +56,7 @@ export default function AdminDashboard() {
     const filtered = leads.filter(l =>
       l.name?.toLowerCase().includes(term) ||
       l.email?.toLowerCase().includes(term) ||
-      l.company_name?.toLowerCase().includes(term)
+      l.company?.toLowerCase().includes(term)
     );
     setFilteredLeads(filtered);
   }, [searchTerm, leads]);
@@ -120,7 +120,7 @@ export default function AdminDashboard() {
                 <div>
                   <div className="text-[10px] text-brown/50 font-bold uppercase tracking-wider">{new Date(lead.created_at).toLocaleDateString()}</div>
                   <div className="text-lg font-bold text-brown font-serif mt-0.5 leading-tight">{lead.name}</div>
-                  <div className="text-xs text-brown/70 mt-0.5 font-semibold">{lead.company_name || 'No Company'}</div>
+                  <div className="text-xs text-brown/70 mt-0.5 font-semibold">{lead.company || 'No Company'}</div>
                 </div>
                 <div className="shrink-0">
                   <select
@@ -157,7 +157,7 @@ export default function AdminDashboard() {
                 </div>
                 <div>
                   <div className="text-brown/55 font-bold uppercase tracking-widest text-[9px] mb-0.5">Interest</div>
-                  <div className="text-orange font-bold">{lead.services_interested || '-'}</div>
+                  <div className="text-orange font-bold">{lead.services || '-'}</div>
                 </div>
               </div>
 
@@ -210,9 +210,9 @@ export default function AdminDashboard() {
                       <div className="text-xs text-brown/50 font-semibold mt-0.5">{lead.phone}</div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm font-bold text-brown">{lead.company_name || '-'}</div>
+                      <div className="text-sm font-bold text-brown">{lead.company || '-'}</div>
                       <div className="text-xs text-brown/60 mt-1 font-semibold">Budget: <span className="text-brown">{lead.budget || '-'}</span></div>
-                      <div className="text-xs text-orange font-bold mt-1">{lead.services_interested}</div>
+                      <div className="text-xs text-orange font-bold mt-1">{lead.services}</div>
                     </td>
                     <td className="px-6 py-4 text-sm text-brown/85 max-w-xs truncate font-medium" title={lead.message}>
                       {lead.message}

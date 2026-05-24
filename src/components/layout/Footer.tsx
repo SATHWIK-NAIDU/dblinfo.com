@@ -24,20 +24,15 @@ export default function Footer() {
         throw new Error('Supabase client is not initialized. Please configure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.');
       }
 
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('newsletters')
-        .insert([{ email: cleanEmail }])
-        .select();
+        .insert([{ email: cleanEmail }]);
 
       if (error) {
         throw error;
       }
 
-      if (!data || data.length === 0) {
-        throw new Error('Verification failed: database insertion returned no records.');
-      }
-
-      console.log('[Newsletter Footer] Subscription successful & validated:', data[0]);
+      console.log('[Newsletter Footer] Subscription successful in Supabase.');
       setSubscribed(true);
       setEmail('');
     } catch (err: any) {

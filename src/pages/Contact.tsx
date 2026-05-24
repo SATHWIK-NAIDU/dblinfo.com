@@ -41,10 +41,9 @@ export default function Contact() {
 
       console.log('[Contact] Sending payload to public.leads table:', dbPayload);
 
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('leads')
-        .insert([dbPayload])
-        .select();
+        .insert([dbPayload]);
 
       if (error) {
         console.error('[Contact] Supabase insert operation failed:', error);
@@ -52,13 +51,7 @@ export default function Contact() {
         return;
       }
 
-      if (!data || data.length === 0) {
-        console.error('[Contact] Supabase insert succeeded but returned no records/data.');
-        setStatus('error');
-        return;
-      }
-
-      console.log('[Contact] Lead successfully created & validated in Supabase:', data[0]);
+      console.log('[Contact] Lead successfully created in Supabase.');
       setStatus('success');
 
       setFormData({

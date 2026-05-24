@@ -36,9 +36,7 @@ export default function Contact() {
         gstin: formData.gstin.trim() || null,
         budget: formData.budget || null,
         services_interested: formData.services || null,
-        message: formData.message.trim(),
-        status: 'New',
-        created_at: new Date().toISOString()
+        message: formData.message.trim()
       };
 
       console.log('[Contact] Sending payload to public.leads table:', dbPayload);

@@ -20,18 +20,47 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('submitting');
+    console.log('[Contact] Initiating lead submission. Data:', formData);
 
     try {
-      const { error } = await supabase
+      if (!supabase) {
+        throw new Error('Supabase client is not initialized. Please ensure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are set.');
+      }
+
+      // Explicitly map formData fields to exact Supabase database column names
+      const dbPayload = {
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim(),
+        company: formData.company.trim() || null,
+        gstin: formData.gstin.trim() || null,
+        budget: formData.budget || null,
+        services_interested: formData.services || null,
+        message: formData.message.trim(),
+        status: 'New',
+        created_at: new Date().toISOString()
+      };
+
+      console.log('[Contact] Sending payload to public.leads table:', dbPayload);
+
+      const { data, error } = await supabase
         .from('leads')
-        .insert([formData]);
+        .insert([dbPayload])
+        .select();
 
       if (error) {
-        console.error(error);
+        console.error('[Contact] Supabase insert operation failed:', error);
         setStatus('error');
         return;
       }
 
+      if (!data || data.length === 0) {
+        console.error('[Contact] Supabase insert succeeded but returned no records/data.');
+        setStatus('error');
+        return;
+      }
+
+      console.log('[Contact] Lead successfully created & validated in Supabase:', data[0]);
       setStatus('success');
 
       setFormData({

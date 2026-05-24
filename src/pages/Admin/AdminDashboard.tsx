@@ -24,20 +24,25 @@ export default function AdminDashboard() {
   const { session } = useOutletContext<{ session: any }>();
 
   const fetchLeads = async () => {
-    if (!session) return;
+    if (!supabase) return;
     try {
-      const res = await fetch('/api/leads', {
-        headers: {
-          'Authorization': `Bearer ${session.access_token}`
-        }
-      });
-      const data = await res.json();
-      if (res.ok && data.leads) {
-        setLeads(data.leads);
-        setFilteredLeads(data.leads);
+      console.log('[AdminDashboard] Fetching leads directly from Supabase...');
+      const { data, error } = await supabase
+        .from('leads')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        throw error;
+      }
+
+      if (data) {
+        console.log(`[AdminDashboard] Successfully loaded ${data.length} leads.`);
+        setLeads(data);
+        setFilteredLeads(data);
       }
     } catch (err) {
-      console.error(err);
+      console.error('[AdminDashboard] Failed to fetch leads from Supabase:', err);
     } finally {
       setLoading(false);
     }
@@ -58,19 +63,25 @@ export default function AdminDashboard() {
   }, [searchTerm, leads]);
 
   const updateStatus = async (id: string, status: string) => {
-    if (!session) return;
+    if (!supabase) return;
     try {
+      console.log(`[AdminDashboard] Updating lead ${id} status to ${status}...`);
+      // Optimistic update
       setLeads(leads.map(l => l.id === id ? { ...l, status: status as any } : l));
-      await fetch(`/api/leads/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${session.access_token}`
-        },
-        body: JSON.stringify({ status })
-      });
+
+      const { error } = await supabase
+        .from('leads')
+        .update({ status })
+        .eq('id', id);
+
+      if (error) {
+        throw error;
+      }
+      console.log('[AdminDashboard] Lead status updated successfully in Supabase.');
     } catch (err) {
-      console.error(err);
+      console.error('[AdminDashboard] Failed to update lead status in Supabase:', err);
+      // Revert if error occurs by refetching
+      fetchLeads();
     }
   };
 

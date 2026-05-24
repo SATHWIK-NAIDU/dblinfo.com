@@ -6,7 +6,8 @@ import { supabase } from '../../lib/supabase';
 export default function NewsletterPopup() {
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<'idle' | 'success'>('idle');
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     // Check if the user already dismissed or subscribed
@@ -38,18 +39,32 @@ export default function NewsletterPopup() {
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email.trim()) {
-      try {
-        if (supabase) {
-          const { error } = await supabase.from('newsletters').insert([{ email }]);
-          if (error) {
-            console.error('Error subscribing to newsletter via popup:', error);
-          }
-        }
-      } catch (err) {
-        console.error('Failed to subscribe email via popup:', err);
+    const cleanEmail = email.trim();
+    if (!cleanEmail) return;
+
+    setStatus('submitting');
+    setErrorMessage(null);
+    console.log('[Newsletter Popup] Submitting email:', cleanEmail);
+
+    try {
+      if (!supabase) {
+        throw new Error('Supabase client is not initialized. Please configure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.');
       }
-      
+
+      const { data, error } = await supabase
+        .from('newsletters')
+        .insert([{ email: cleanEmail }])
+        .select();
+
+      if (error) {
+        throw error;
+      }
+
+      if (!data || data.length === 0) {
+        throw new Error('Verification failed: database insertion returned no records.');
+      }
+
+      console.log('[Newsletter Popup] Subscription successful & validated:', data[0]);
       setStatus('success');
       localStorage.setItem('dbl_newsletter_subscribed', 'true');
       
@@ -57,6 +72,14 @@ export default function NewsletterPopup() {
       setTimeout(() => {
         setIsOpen(false);
       }, 2500);
+    } catch (err: any) {
+      console.error('[Newsletter Popup] Subscription error:', err);
+      setStatus('error');
+      if (err?.code === '23505') {
+        setErrorMessage('This email is already subscribed.');
+      } else {
+        setErrorMessage(err?.message || 'Failed to subscribe. Please try again.');
+      }
     }
   };
 
@@ -132,18 +155,31 @@ export default function NewsletterPopup() {
                     <input 
                       required
                       type="email"
+                      disabled={status === 'submitting'}
                       placeholder="Enter your professional email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="flex-grow bg-[#FAF6F1] border-1.5 border-brown/15 rounded-xl px-4 py-3 text-sm text-brown focus:outline-none focus:border-orange transition-all font-sans font-medium"
+                      className="flex-grow bg-[#FAF6F1] border-1.5 border-brown/15 rounded-xl px-4 py-3 text-sm text-brown focus:outline-none focus:border-orange transition-all font-sans font-medium disabled:opacity-50"
                     />
                     <button 
                       type="submit"
-                      className="px-6 py-3 rounded-xl bg-orange hover:bg-orange-dk text-[#FFFFFF] font-bold text-sm tracking-wide transition-all shadow-md shadow-orange/15 hover:shadow-orange/25 flex items-center justify-center gap-2 cursor-pointer"
+                      disabled={status === 'submitting'}
+                      className="px-6 py-3 rounded-xl bg-orange hover:bg-orange-dk text-[#FFFFFF] font-bold text-sm tracking-wide transition-all shadow-md shadow-orange/15 hover:shadow-orange/25 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75"
                     >
-                      Subscribe <ArrowRight size={16} />
+                      {status === 'submitting' ? (
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      ) : (
+                        <>
+                          Subscribe <ArrowRight size={16} />
+                        </>
+                      )}
                     </button>
                   </div>
+                  {errorMessage && (
+                    <p className="text-red-500 text-xs font-bold font-sans mt-1">
+                      {errorMessage}
+                    </p>
+                  )}
                   <p className="text-[10px] text-brown/60 leading-relaxed font-sans">
                     * Zero spam. High-signal strategic breakdowns only. Unsubscribe at any time.
                   </p>

@@ -7,23 +7,49 @@ import { supabase } from '../../lib/supabase';
 export default function Footer() {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email.trim()) {
-      try {
-        if (supabase) {
-          const { error } = await supabase.from('newsletters').insert([{ email }]);
-          if (error) {
-            console.error('Error subscribing to newsletter:', error);
-          }
-        }
-      } catch (err) {
-        console.error('Failed to subscribe email:', err);
+    const cleanEmail = email.trim();
+    if (!cleanEmail) return;
+
+    setIsSubmitting(true);
+    setErrorMessage(null);
+    console.log('[Newsletter Footer] Submitting email:', cleanEmail);
+
+    try {
+      if (!supabase) {
+        throw new Error('Supabase client is not initialized. Please configure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.');
       }
-      // Show local visual success confirmation
+
+      const { data, error } = await supabase
+        .from('newsletters')
+        .insert([{ email: cleanEmail }])
+        .select();
+
+      if (error) {
+        throw error;
+      }
+
+      if (!data || data.length === 0) {
+        throw new Error('Verification failed: database insertion returned no records.');
+      }
+
+      console.log('[Newsletter Footer] Subscription successful & validated:', data[0]);
       setSubscribed(true);
       setEmail('');
+    } catch (err: any) {
+      console.error('[Newsletter Footer] Subscription error:', err);
+      // Give cleaner messages (e.g. for duplicates)
+      if (err?.code === '23505') {
+        setErrorMessage('This email is already subscribed.');
+      } else {
+        setErrorMessage(err?.message || 'Failed to subscribe. Please try again.');
+      }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -98,17 +124,28 @@ export default function Footer() {
                   <input
                     required
                     type="email"
+                    disabled={isSubmitting}
                     placeholder="Enter your email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-orange transition-all font-sans"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-orange transition-all font-sans disabled:opacity-50"
                   />
                   <button
                     type="submit"
-                    className="w-full py-3 rounded-xl bg-orange hover:bg-orange-dk text-[#FFFFFF] font-bold text-sm transition-all hover:shadow-lg hover:shadow-orange/15 cursor-pointer text-center"
+                    disabled={isSubmitting}
+                    className="w-full py-3 rounded-xl bg-orange hover:bg-orange-dk text-[#FFFFFF] font-bold text-sm transition-all hover:shadow-lg hover:shadow-orange/15 cursor-pointer text-center disabled:opacity-75 flex items-center justify-center gap-2"
                   >
-                    Subscribe
+                    {isSubmitting ? (
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    ) : (
+                      'Subscribe'
+                    )}
                   </button>
+                  {errorMessage && (
+                    <p className="text-red-400 text-xs font-bold font-sans mt-1">
+                      {errorMessage}
+                    </p>
+                  )}
                 </form>
               </div>
             )}

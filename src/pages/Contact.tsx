@@ -10,7 +10,7 @@ export default function Contact() {
     company: '',
     phone: '',
     email: '',
-    GST: '',
+    gstin: '',
     budget: '',
     services: '',
     message: ''
@@ -39,7 +39,7 @@ export default function Contact() {
         company: '',
         phone: '',
         email: '',
-        GST: '',
+        gstin: '',
         budget: '',
         services: '',
         message: ''
@@ -48,11 +48,12 @@ export default function Contact() {
     } catch (err) {
       console.error(err);
       setStatus('error');
-    };
+    }
+  };
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-      setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
-    };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
     const infoCards = [
       {

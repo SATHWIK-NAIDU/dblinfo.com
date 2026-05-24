@@ -47,10 +47,6 @@ export default function NewsletterPopup() {
     console.log('[Newsletter Popup] Submitting email:', cleanEmail);
 
     try {
-      if (!supabase) {
-        throw new Error('Supabase client is not initialized. Please configure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.');
-      }
-
       const { error } = await supabase
         .from('newsletters')
         .insert([{ email: cleanEmail }]);

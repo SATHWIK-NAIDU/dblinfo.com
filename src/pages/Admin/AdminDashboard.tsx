@@ -7,7 +7,7 @@ interface Lead {
   id: string;
   name: string;
   email: string;
-  company: string;
+  company_name: string;
   phone: string;
   budget: string;
   services_interested: string;
@@ -24,7 +24,6 @@ export default function AdminDashboard() {
   const { session } = useOutletContext<{ session: any }>();
 
   const fetchLeads = async () => {
-    if (!supabase) return;
     try {
       console.log('[AdminDashboard] Fetching leads directly from Supabase...');
       const { data, error } = await supabase
@@ -57,13 +56,12 @@ export default function AdminDashboard() {
     const filtered = leads.filter(l =>
       l.name?.toLowerCase().includes(term) ||
       l.email?.toLowerCase().includes(term) ||
-      l.company?.toLowerCase().includes(term)
+      l.company_name?.toLowerCase().includes(term)
     );
     setFilteredLeads(filtered);
   }, [searchTerm, leads]);
 
   const updateStatus = async (id: string, status: string) => {
-    if (!supabase) return;
     try {
       console.log(`[AdminDashboard] Updating lead ${id} status to ${status}...`);
       // Optimistic update
@@ -85,13 +83,7 @@ export default function AdminDashboard() {
     }
   };
 
-  if (!supabase) {
-    return (
-      <div className="bg-white border border-brown/10 rounded-3xl p-10 text-center text-brown/70 font-sans shadow-md">
-        Supabase is not configured. Admin panel depends on Supabase connection.
-      </div>
-    );
-  }
+  // Removed redundant supabase check check block
 
   return (
     <div className="space-y-8">
@@ -128,7 +120,7 @@ export default function AdminDashboard() {
                 <div>
                   <div className="text-[10px] text-brown/50 font-bold uppercase tracking-wider">{new Date(lead.created_at).toLocaleDateString()}</div>
                   <div className="text-lg font-bold text-brown font-serif mt-0.5 leading-tight">{lead.name}</div>
-                  <div className="text-xs text-brown/70 mt-0.5 font-semibold">{lead.company || 'No Company'}</div>
+                  <div className="text-xs text-brown/70 mt-0.5 font-semibold">{lead.company_name || 'No Company'}</div>
                 </div>
                 <div className="shrink-0">
                   <select
@@ -218,7 +210,7 @@ export default function AdminDashboard() {
                       <div className="text-xs text-brown/50 font-semibold mt-0.5">{lead.phone}</div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm font-bold text-brown">{lead.company || '-'}</div>
+                      <div className="text-sm font-bold text-brown">{lead.company_name || '-'}</div>
                       <div className="text-xs text-brown/60 mt-1 font-semibold">Budget: <span className="text-brown">{lead.budget || '-'}</span></div>
                       <div className="text-xs text-orange font-bold mt-1">{lead.services_interested}</div>
                     </td>

@@ -23,16 +23,12 @@ export default function Contact() {
     console.log('[Contact] Initiating lead submission. Data:', formData);
 
     try {
-      if (!supabase) {
-        throw new Error('Supabase client is not initialized. Please ensure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are set.');
-      }
-
       // Explicitly map formData fields to exact Supabase database column names
       const dbPayload = {
         name: formData.name.trim(),
         email: formData.email.trim(),
         phone: formData.phone.trim(),
-        company: formData.company.trim() || null,
+        company_name: formData.company.trim() || null,
         gstin: formData.gstin.trim() || null,
         budget: formData.budget || null,
         services_interested: formData.services || null,
